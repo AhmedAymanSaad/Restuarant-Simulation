@@ -1,4 +1,5 @@
 #include "Order.h"
+#include "Cook.h"
 
 Order::Order(int id, ORD_TYPE r_Type)
 {
@@ -87,7 +88,7 @@ double Order::GetPriority()
 	return Priority;
 }
 
-bool Order::InServiceExecute(int TimeStep)
+void Order::InServiceExecute(int TimeStep)
 {
 	setStatus(DONE);
 	FinishTime=TimeStep;
@@ -97,7 +98,8 @@ bool Order::InServiceExecute(int TimeStep)
 void Order::AssignExecute(Cook*cptr,int TimeStep)
 {
 	AssignedCook=cptr;
-	ServTime=TimeStep;
+	WaitTime = TimeStep - ArrTime;
+	ServTime= cptr->getSpeed();
 }
 
 Cook* Order::GetAssignedCook()
@@ -106,6 +108,10 @@ Cook* Order::GetAssignedCook()
 }
 int Order::getservicetime(){
 return ServTime;
+}
+
+int Order::getendofservicetime() {
+	return ArrTime + WaitTime + ServTime;
 }
 
 

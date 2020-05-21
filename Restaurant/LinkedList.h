@@ -107,6 +107,8 @@ bool LinkedList<T>::remove(const T &anentry)
 	return true;
 }
 
+
+
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
@@ -139,7 +141,9 @@ LinkedList<T> LinkedList<T>::operator=(LinkedList List)
 template <typename T>
 Node<T>* LinkedList<T>::GetFirst()
 {
-	return Head;
+	if (Head)
+		return Head;
+	return nullptr;
 }
 
 template <typename T>

@@ -21,7 +21,7 @@ void NRM_Station::Execute(Kitchen* pKitchen)
 	while (!NRMWaitingList->isEmpty()) {
 		nptr = NRMWaitingList->GetFirst();
 		optr = nptr->getItem();
-		if (nrmc->isEmpty() && !vipc->isEmpty) {
+		if (nrmc->isEmpty() && !vipc->isEmpty()) {
 			vipc->dequeue(cptr);
 			inserviceo->add(optr);
 			NRMWaitingList->remove(optr);

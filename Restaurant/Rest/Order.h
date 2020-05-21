@@ -40,11 +40,12 @@ public:
 	void SetPriority();
 	double GetPriority();
 
-	bool InServiceExecute(int);
+	void InServiceExecute(int);
 	void AssignExecute(Cook*,int);
 
 	Cook* GetAssignedCook();
 	int getservicetime();
+	int getendofservicetime();
 
 	
 };

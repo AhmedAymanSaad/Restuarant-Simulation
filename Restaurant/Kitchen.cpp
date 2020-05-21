@@ -1,6 +1,7 @@
 #include "Kitchen.h"
 #include "POS_System.h"
 #include"Rest/Restaurant.h"
+#include "LinkedList.h"
 
 Kitchen::Kitchen()
 {
@@ -101,7 +102,27 @@ void Kitchen::Execute(Restaurant* pRest)
 
 void Kitchen::ExecuteInService()
 {
-	
+	Node<Order*>* nptr = nullptr;
+	nptr = pPOS->getInServiceList()->GetFirst();
+	while (nptr) {
+		Order* pO= nptr->getItem();
+		nptr = nptr->getNext();
+		if (pO->getendofservicetime() == timestep) {
+			pO->GetAssignedCook()->incrementOrdersFinished();
+			if (pO->GetAssignedCook()->GetType() == TYPE_NRM)
+				StationNRM.GetCooksList()->enqueue(pO->GetAssignedCook());
+			if (pO->GetAssignedCook()->GetType() == TYPE_VGAN)
+				StationVGN.GetCooksList()->enqueue(pO->GetAssignedCook());
+			if (pO->GetAssignedCook()->GetType() == TYPE_VIP)
+				StationVIP.GetCooksList()->enqueue(pO->GetAssignedCook());
+			InServiceCooks->remove(pO->GetAssignedCook());
+			pO->GetAssignedCook()->setStatus(AVAILABLE);
+			pO->GetAssignedCook()->setAssignedOrder(nullptr);
+			pO->setStatus(DONE);
+			pPOS->getServicedQueue()->enqueue(pO);
+			pPOS->getInServiceList()->remove(pO);
+		}
+	}
 }
 
 void Kitchen::CheckUnavailableCooks()
@@ -143,13 +164,18 @@ Cook** Kitchen::GetCooksList()
 	for (int i = 0;i < TYPE_CNT;i++)
 	{
 		pList = pStation->GetCooksList();
-		for (int j = 0;j < CookCounts[i];j++)
+		TypesArray = pList->toArray(x);
+		for (int j = 0;j < x;j++)
 		{
-			TypesArray = pList->toArray(x);
 			CookArray[count] = TypesArray[j];
 			count++;
 		}
 		pStation = GetNextStation(pStation);
+	}
+	TypesArray = InServiceCooks->toArray(x);
+	for (int i = 0;i < x;i++) {
+		CookArray[count] = TypesArray[i];
+		count++;
 	}
 	return CookArray;
 	
