@@ -89,17 +89,23 @@ double Order::GetPriority()
 
 bool Order::InServiceExecute(int TimeStep)
 {
-	
+	setStatus(DONE);
+	FinishTime=TimeStep;
+	WaitTime=FinishTime-ServTime;
 }
 
-void Order::AssignExecute()
+void Order::AssignExecute(Cook*cptr,int TimeStep)
 {
-
+ AssignedCook=cptr;
+ ServTime=TimeStep;
 }
 
 Cook* Order::GetAssignedCook()
 {
 	return AssignedCook;
+}
+int Order::getservicetime(){
+return ServTime;
 }
 
 

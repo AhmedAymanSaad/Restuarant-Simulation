@@ -31,6 +31,7 @@ public:
 	int GetWaitingQueueTotalCount(); // Returns number of orders waiting
 	int* GetWaitingQueueCounts();    //Returns the number of orders waiting for each type
 	int* GetCooksCounts(); //Returns number of cooks f each type
-
+	LinkedList<Order*>* getInServiceList();
+	Queue<Order*>* getServicedQueue();
 };
 
