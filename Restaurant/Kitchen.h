@@ -16,6 +16,10 @@ private:
 	VIP_Station StationVIP;
 	NRM_Station StationNRM;
 	VGN_Station StationVGN;
+	Queue<Cook*>NRMcook;
+	Queue<Cook*>VGNcook;
+    Queue<Cook*>VIPcook;
+	Queue<Cook*>InServiceCook;
 
 	LinkedList<Cook*>* InServiceCooks;
 	int* CookCounts;      //Dynamically allocated array containing the counts of all the different types of cooks
@@ -26,7 +30,7 @@ private:
 	int* CooksSpeed;      //Dynamically allocated array containing the speeds of all the different types of cooks
 	int OrdersBeforeBreak;
 	int* CookBreakDur;    //Dynamically allocated array containing the Break Duration of all the different types of cooks
-
+	int timestep;
 public:
 	Kitchen();
 	void FillKitchen();
@@ -44,9 +48,16 @@ public:
 	void setRestPrd(int);
 	void setAutoProm(int);
 	void setVIPWait(int);
-	void ExecuteInService(int);
+	void ExecuteInService();
 	void ExecuteAllStations();
 	void CheckUnavailableCooks();
+	Queue<Cook*>* getAvNRMcook();
+	Queue<Cook*> getAvVGNcook();
+    Queue<Cook*> getAvVIPcook();
+	Queue<Cook*> getInServiceCook();
+	int getCurrentTimeStep();
+	void setTimeStep(int);
+	POS_System*getpPOS();
 	~Kitchen();
 
 };
