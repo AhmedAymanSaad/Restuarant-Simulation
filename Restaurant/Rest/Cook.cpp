@@ -1,4 +1,6 @@
 #include "Cook.h"
+#include "Order.h"
+
 
 int Cook::IDCount = 0;
 
@@ -47,4 +49,32 @@ Cook::Cook(ORD_TYPE type, int speed, int breakdur)
 	status = AVAILABLE;
 	AssignedOrder = nullptr;
 }
+void Cook::setStatus(COOK_STATUS cs){
+	status=cs;
+}
 
+COOK_STATUS Cook::getStatus(){
+return status;
+}
+void Cook::incrementOrdersFinished(){
+OrdersFinished++;
+}
+int Cook::getSpeed(){
+return speed;
+}
+bool Cook::finish(int currenttimestep){
+	
+	if(speed>=1 && AssignedOrder->getservicetime()<currenttimestep){
+	return true;
+	}
+	else{
+	return false; 
+	}
+}
+Order* Cook::getAssignedOrder(){
+return AssignedOrder;
+}
+void Cook::setAssignedOrder(Order*p){
+	AssignedOrder=p;
+
+}

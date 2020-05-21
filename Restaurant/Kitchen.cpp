@@ -93,14 +93,15 @@ Station* Kitchen::GetNextStation(Station* CurrStation)
 
 void Kitchen::Execute(Restaurant* pRest)
 {
-	ExecuteInService(pRest->GetTimeStep()); //Goes through all the orders to check which ones are finished
+	setCurrentTimeStep(pRest->GetTimeStep());
+	ExecuteInService(); //Goes through all the orders to check which ones are finished
 	CheckUnavailableCooks(); //Break Handling, checks of cook has finished break or not, and has reste from injury or not
 	ExecuteAllStations(); //Goes through waiting lists
 }
 
-void Kitchen::ExecuteInService(int TimeStep)
+void Kitchen::ExecuteInService()
 {
-	//Call Order::InServiceExecute Function on every order in the inServiceList
+	
 }
 
 void Kitchen::CheckUnavailableCooks()
@@ -159,7 +160,31 @@ int* Kitchen::GetCooksCounts()
 	return CookCounts;
 }
 
+Queue<Cook*>* Kitchen::getAvNRMcook() {
+	return StationNRM.GetCooksList();
+}
+Queue<Cook*>* Kitchen::getAvVGNcook() {
+	return StationVGN.GetCooksList();
+}
+Queue<Cook*>* Kitchen::getAvVIPcook() {
+	return StationNRM.GetCooksList();
+}
+LinkedList<Cook*>* Kitchen::getInServiceCook() {
+	return InServiceCooks;
+}
+
+int Kitchen::getCurrentTimeStep() {
+	return timestep;
+}
+
+void Kitchen::setCurrentTimeStep(int ts) {
+	timestep = ts;
+}
+
 Kitchen::~Kitchen()
 {
 
+}
+POS_System* Kitchen::getpPOS(){
+return pPOS;
 }

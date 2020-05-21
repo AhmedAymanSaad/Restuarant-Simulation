@@ -23,5 +23,11 @@ public:
 	ORD_TYPE GetType() const;
 	void setID(int);
 	void setType(ORD_TYPE) ;
-
+	COOK_STATUS getStatus();
+	void setStatus(COOK_STATUS );
+	void incrementOrdersFinished();
+	int getSpeed();
+	bool finish(int);
+	Order* getAssignedOrder();
+	void setAssignedOrder(Order*);
 };

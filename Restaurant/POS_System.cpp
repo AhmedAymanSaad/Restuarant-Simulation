@@ -127,3 +127,11 @@ int* POS_System::GetWaitingQueueCounts()
 	ret[2] = VIPwaitingCount;
 	return ret;
 }
+LinkedList<Order*>* POS_System::getInServiceList(){
+
+return InServiceList;
+	
+}
+Queue<Order*>*POS_System:: getServicedQueue(){
+return ServicedQueue; 
+}
