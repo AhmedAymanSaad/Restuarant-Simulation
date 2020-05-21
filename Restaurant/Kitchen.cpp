@@ -74,19 +74,19 @@ Station* Kitchen::GetNextStation(Station* CurrStation)
 	NRM_Station* pStationNRM = dynamic_cast<NRM_Station*>(CurrStation);
 	if (pStationNRM)
 	{
-		RetStation = &StationVGN;
+		RetStation = &StationVIP;
 		return RetStation;
 	}
 	VGN_Station* pStationVGN = dynamic_cast<VGN_Station*>(CurrStation);
 	if (pStationVGN)
 	{
-		RetStation = &StationVIP;
+		RetStation = &StationNRM;
 		return RetStation;
 	}
 	VIP_Station* pStationVIP = dynamic_cast<VIP_Station*>(CurrStation);
 	if (pStationVIP)
 	{
-		RetStation = &StationNRM;
+		RetStation = &StationVGN;
 		return RetStation;
 	}
 }
@@ -111,7 +111,7 @@ void Kitchen::CheckUnavailableCooks()
 void Kitchen::ExecuteAllStations()
 {
 	Station* pStation;
-	pStation = &StationNRM;
+	pStation = &StationVIP;
 	for (int i = 0;i < TYPE_CNT;i++)
 	{
 		pStation->Execute(this);
